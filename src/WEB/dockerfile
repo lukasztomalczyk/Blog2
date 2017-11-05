@@ -1,15 +1,9 @@
 # build image
-FROM microsoft/aspnetcore-build:2.0.0 as build
-WORKDIR /app
-
-COPY *.csproj .
-RUN dotnet restore
-
-COPY . .
-RUN dotnet publish --output /out/ --configuration Release
-
-# runtime image
 FROM microsoft/aspnetcore:2.0.0
 WORKDIR /app
-COPY --from=build /out .
-ENTRYPOINT [ "dotnet", "WEB.dll" ]
+
+COPY ./bin/Docker .
+
+ENV ASPNETCORE_ENVIRONMENT Docker
+ENV ASPNETCORE_URLS "http://*:5000"
+ENTRYPOINT dotnet WEB.dll
