@@ -1,3 +1,4 @@
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,6 +12,7 @@ namespace DAL.Context
                    .HasColumnName("ID")
                    .HasColumnType("int");
             builder.HasKey(k => k.Id);
+            builder.HasMany(k => k.Posts);
             builder.Property(p => p.FirstName)
                    .HasColumnName("First_Name")
                    .HasColumnType("varchar(20)");

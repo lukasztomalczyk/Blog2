@@ -18,11 +18,58 @@ namespace DAL.Repository
             this._context = context;
         }
 
-       public IQueryable<T> GetAll()
+        public virtual T Add(T t)
+        {
+          _context.Set<T>().Add(t);
+          _context.SaveChanges();
+          return t;
+        }
+
+          public virtual void Save()
     {
-      return _context.Set<T>();
+
+      _context.SaveChanges();
     }
 
+
+    private bool disposed = false;
+    protected virtual void Dispose(bool disposing)
+    {
+      if (!this.disposed)
+      {
+        if (disposing)
+        {
+          _context.Dispose();
+        }
+        this.disposed = true;
+      }
+    }
+
+    public void Dispose()
+    {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
+
+        public IQueryable<T> GetAll()
+        {
+            return _context.Set<T>();
+        }
+
+
+        Task<T> IGenericRepository<T>.AddAsyn(T t)
+        {
+            throw new NotImplementedException();
+        }
+
+
+    public async virtual Task<int> SaveAsync()
+    {
+      return await _context.SaveChangesAsync();
+    }
+
+
+/*
     public virtual async Task<ICollection<T>> GetAllAsync()
     {
 
@@ -39,13 +86,7 @@ namespace DAL.Repository
       return await _context.Set<T>().FindAsync(id);
     }
 
-    public virtual T Add(T t)
-    {
 
-      _context.Set<T>().Add(t);
-      _context.SaveChanges();
-      return t;
-    }
 
     public virtual async Task<T> AddAsync(T t)
     {
@@ -92,7 +133,7 @@ namespace DAL.Repository
       if (t == null)
         return null;
       T exist = _context.Set<T>().Find(key);
-      if (exist != null) { 
+      if (exist != null) {
         _context.Entry(exist).CurrentValues.SetValues(t);
         _context.SaveChanges();
       }
@@ -122,17 +163,7 @@ namespace DAL.Repository
       return await _context.Set<T>().CountAsync();
     }
 
-    public virtual void Save()
-    {
-
-      _context.SaveChanges();
-    }
-
-    public async virtual Task<int> SaveAsync()
-    {
-      return await _context.SaveChangesAsync();
-    }
-
+  
     public virtual IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
     {
       IQueryable<T> query = _context.Set<T>().Where(predicate);
@@ -156,25 +187,10 @@ namespace DAL.Repository
 
       return queryable;
     }
+ */
 
-    private bool disposed = false;
-    protected virtual void Dispose(bool disposing)
-    {
-      if (!this.disposed)
-      {
-        if (disposing)
-        {
-          _context.Dispose();
-        }
-        this.disposed = true;
-      }
-    }
 
-    public void Dispose()
-    {
-      Dispose(true);
-      GC.SuppressFinalize(this);
+
     }
-  }
 
 }

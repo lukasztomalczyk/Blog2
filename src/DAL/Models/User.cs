@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace DAL.Context
+namespace DAL.Models
 {
     public class User
     {

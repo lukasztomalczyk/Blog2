@@ -1,6 +1,6 @@
 using System;
 
-namespace DAL.Context
+namespace DAL.Models
 {
     public class Post
     {

@@ -1,3 +1,4 @@
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -27,6 +28,7 @@ namespace DAL.Context
                    .HasColumnName("Date")
                    .HasColumnType("datetime");
             builder.HasKey(k => k.Id);
+
             builder.HasOne(p => p.CurrentUser)
                    .WithMany(p => p.Posts)
                    .HasForeignKey(fk => fk.CurrentUserId);

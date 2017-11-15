@@ -5,12 +5,16 @@ namespace WEB.Controllers
 {
     public class BlogController : Controller
     {
+        private IBlogRepository _blogRepository;
 
-        private readonly IBlogRepository _blogRepository;
-
-        public BlogController(IBlogRepository blogRepository)
+        public BlogController(IBlogRepository _blogRepository)
         {
-            this._blogRepository = blogRepository;
+            this._blogRepository = _blogRepository;
+        }
+
+        public IActionResult AddPost()
+        {
+            return View();
         }
     }
 }
