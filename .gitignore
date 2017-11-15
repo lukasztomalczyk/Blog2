@@ -16,6 +16,11 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+src/WEB/bin
+src/WEB/obj
+src/DAL/bin
+src/DAL/obj
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
